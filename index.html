@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>酷狗音乐-就是歌多</title>
+		<link rel="stylesheet" href="css/kugou.css"  type="text/css">
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_2272501_enp0iupng5m.css"/>
+		<script src="./js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="page" id="page">
+			<!-- 页面的标题栏 -->
+			<div class="title">
+				<div class="logo">
+					<img src="image/logo.jpg" />
+				</div>
+				<div class="search">
+					<input class="inputMusic" type="search" placeholder="陈翔 流到光时"></input>
+					<img src="image/搜索%20(1).png" >
+				</div>
+				<div class="else">
+					<span>客服中心</span>
+					<span>招贤纳士</span>
+					<span>会员中心</span>
+					<span>商务合作</span>
+				</div>
+				<div class="line"></div>
+				<div class="login">
+					<button type="button">登录</button>
+				</div>
+			</div>
+			<!-- 轮播图 -->
+			<div class="nav">
+				<!-- 菜单栏 -->
+				<div class="menu">
+					<div class="shouye">
+						首页
+					</div>
+					<div class="bangdan">
+						榜单
+					</div>
+					<div class="download">
+						下载客户端
+					</div>
+					<div class="more" v-bind:class="{'hover':hoverFlag}" id="more" 
+					v-on:mouseenter="showMore()"
+					v-on:mouseleave ="hoverFlag+hoverFlagList>=2?hiddenMore():''">更多
+					<a href="#" class="iconfont jiantou" v-bind:class="hoverFlag>0?'icon-jiantou-copy':'icon-jiantou'"></a>
+						<ul class="moreList" id="moreList">
+							<li v-on:mouseenter="showMoreList()">电台</li>
+							<li v-on:mouseenter="showMoreList()">MV</li>
+							<li v-on:mouseenter="showMoreList()">歌单</li>
+							<li v-on:mouseenter="showMoreList()">歌手</li>
+						</ul>
+					</div>
+					
+					<div class="elseImform">
+						<a href="" class="iconfont icon-star"> 直播</a>
+						<a href="" class="iconfont icon-gaiicon-"> 商城</a>
+						<a href="" class="iconfont icon-hanhan-01-01"> 音乐人</a>
+						<a href="" class="iconfont icon-zongdailizhanghao"> 代理商</a>
+						<a href="" class="iconfont icon-huatong-KTV"> 主播电台</a>
+						<a href="" class="iconfont icon-pintu"> 开放平台</a>
+					</div>
+				</div>
+				<!-- 轮播图 -->
+				<div class="slid" id='slid' v-on:mouseover="jiantouFlagFun()" v-on:mouseout="jiantouFlagFun()">
+					<div class="jiantou"
+					v-bind:style="jiantouFlag?'visibility: visible':'visibility:hidden'">
+						<a href="#" class="iconfont icon-jiantou-left"
+						v-on:click="beforeBg()"></a>
+						<a href="#" class="iconfont icon-jiantou-right"
+						v-on:click="afterBg()"></a>
+					</div>
+					<div class="dot">
+						<a href="#" class="iconfont"
+						v-on:mouseover="showDot1()"
+						v-bind:class="dotFlag1?'icon-point-copy':'icon-point-copy-9-copy'">
+						</a>
+						<a href="#" class="iconfont"
+						v-on:mouseover="showDot2()"
+						v-bind:class="dotFlag2?'icon-point-copy':'icon-point-copy-9-copy'">
+						</a>
+						<a href="#" class="iconfont"
+						v-on:mouseover="showDot3()"
+						v-bind:class="dotFlag3?'icon-point-copy':'icon-point-copy-9-copy'">
+						</a>
+						<a href="#" class="iconfont"
+						v-on:mouseover="showDot4()"
+						v-bind:class="dotFlag4?'icon-point-copy':'icon-point-copy-9-copy'">
+						</a>
+						<a href="#" class="iconfont"
+						v-on:mouseover="showDot5()"
+						v-bind:class="dotFlag5?'icon-point-copy':'icon-point-copy-9-copy'">
+						</a>
+					</div>
+					<div class="downloadOption">
+						<a href="" class="iconfont icon-changyongtubiao-mianxing">下载PC版</a>
+						<span>|</span>
+						<a href="" class="iconfont icon-pingguo">下载iPhone版</a>
+						<span>|</span>
+						<a href="" class="iconfont icon-anzhuo">下载Android版</a>
+					</div>
+				</div>
+			</div>
+			<!--歌单一 -->
+			<div class="gedan1">
+				<!-- 精选歌曲 -->
+				<div class="jingxuan">
+					<div class="mingchen">
+						<h3>精选</h3>
+						歌单
+						<a href="#" class="mingMore">更多</a>
+					</div>
+					<div class="jingContent">
+						<div class="img1" v-on:mouseover="gedanhover(1)" v-on:mouseout="gedanhover(1)">
+							<p class="playNum">
+								<span class="iconfont icon-erji"></span>
+								<span>0.7万</span>
+							</p>
+							<div class="buttom1">
+								<p>乡村之旅：安静惬意 与自然同在</p>
+								<span>蔓若</span>
+							</div>
+						</div>
+						<div class="img1_hover" v-bind:style="jingFlag?'visibility: visible':'visibility:hidden'">	
+							<span class="iconfont icon-music-play"></span>
+						</div>
+						<div class="img2">
+							<div class="img21" v-on:mouseover="gedanhover(21)" v-on:mouseout="gedanhover(21)">
+								<p class="playNum">
+									<span class="iconfont icon-erji"></span>
+									<span>0.7万</span>
+								</p>
+								<div class="buttom2">
+									<p>【国创音乐精选】聆听穿越动漫世界</p>
+									<span>成功</span>
+								</div>
+								<div class="img2_hover" v-bind:style="jingFlag1?'visibility: visible':'visibility:hidden'">	
+									<span class="iconfont icon-music-play"></span>
+								</div>
+							</div>
+							
+							<div class="img22" v-on:mouseover="gedanhover(22)" v-on:mouseout="gedanhover(22)">
+								<p class="playNum">
+									<span class="iconfont icon-erji"></span>
+									<span>0.7万</span>
+								</p>
+								<div class="buttom2">
+									<p>通勤路上不孤单！华语情歌来相伴</p>
+									<span>仙女散花</span>
+								</div>
+								<div class="img2_hover" v-bind:style="jingFlag2?'visibility: visible':'visibility:hidden'">	
+									<span class="iconfont icon-music-play"></span>
+								</div>
+							</div>
+							<div class="img23" v-on:mouseover="gedanhover(23)" v-on:mouseout="gedanhover(23)">
+								<p class="playNum">
+									<span class="iconfont icon-erji"></span>
+									<span>0.7万</span>
+								</p>
+								<div class="buttom2">
+									<p>一壶酒，一卷书，半世逍遥半日闲</p>
+									<span>简单爱</span>
+								</div>
+								<div class="img2_hover" v-bind:style="jingFlag3?'visibility: visible':'visibility:hidden'">	
+									<span class="iconfont icon-music-play"></span>
+								</div>
+							</div>
+							<div class="img24" v-on:mouseover="gedanhover(24)" v-on:mouseout="gedanhover(24)">
+								<p class="playNum">
+									<span class="iconfont icon-erji"></span>
+									<span>0.7万</span>
+								</p>
+								<div class="buttom2">
+									<p>一曲入魂，那些自带泪点的OST</p>
+									<span>酷狗影视小编-栗子</span>
+								</div>
+								<div class="img2_hover" v-bind:style="jingFlag4?'visibility: visible':'visibility:hidden'">	
+									<span class="iconfont icon-music-play"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 热门榜单 -->
+				<div class="remen">
+					<div class="mingchen">
+						<h3>热门</h3>
+						榜单
+						<a href="#" class="mingMore">更多</a>
+					</div>
+					<div class="reList">
+						<div class="biaosheng" v-on:mouseover="remenFlag(1)" v-on:mouseout="remenFlag(1)">
+							<img src="image/2-6.jpg" >
+							<div class="remen_hover" v-bind:style="remenFlag1?'visibility: visible':'visibility:hidden'">
+								<span class="iconfont icon-music-play"></span>
+							</div>
+							<div class="List">
+								<h5>酷狗飙升榜</h5>
+								<p>1.Jamai-Sorry Seems to Be the Hardest Word</p>
+								<p>2.Blue-Sorry Seems to Be the Hardest Word</p>
+							</div>
+							<span class="iconfont icon-jiantou-right"></span>
+						</div>
+						<div class="Top500" v-on:mouseover="remenFlag(2)" v-on:mouseout="remenFlag(2)">
+							<img src="image/2-7.jpg" >
+							<div class="remen_hover" v-bind:style="remenFlag2?'visibility: visible':'visibility:hidden'">
+								<span class="iconfont icon-music-play"></span>
+							</div>
+							<div class="List">
+								<h5>酷狗TOP500</h5>
+								<p>1.是七叔呢-踏山河</p>
+								<p>2.回小仙-醒不来的梦</p>
+							</div>
+							<span class="iconfont icon-jiantou-right"></span>
+						</div>
+						<div class="hongge" v-on:mouseover="remenFlag(3)" v-on:mouseout="remenFlag(3)">
+							<img src="image/2-8.jpg" >
+							<div class="remen_hover" v-bind:style="remenFlag3?'visibility: visible':'visibility:hidden'">
+								<span class="iconfont icon-music-play"></span>
+							</div>
+							<div class="List">
+								<h5>网络红歌榜</h5>
+								<p>1.回小仙-醒不来的梦</p>
+								<p>2.是七叔呢-踏山河</p>
+							</div>
+							<span class="iconfont icon-jiantou-right"></span>
+						</div>
+						
+					</div>
+					
+					
+				</div>
+				<!-- 广告 -->
+				<!-- <div class="guanggao">
+					
+				</div> -->
+				
+			</div>
+			<!-- 歌单二 -->
+			<div class="gedan2">
+				<div class="xinge">
+					<div class="mingchen">
+						<h3>新歌</h3>
+						首发
+						<div class="xingeInform">
+							<span id="huayus" v-on:mouseover="showHuaYu()">华语</span>
+							<span id="oumeis" v-on:mouseover="showOuMei()">欧美</span>
+							<span id="hanyus" v-on:mouseover="showHanYu()">韩国</span>
+							<span id="riyus"  v-on:mouseover="showRiYu()">日本</span>
+						</div>
+						<button class="playAll" type="button">
+							<span class="iconfont icon-sanjiaoxing1"></span>
+							<p> 全部播放</p>
+						</button>
+					</div>
+					<div class="xinContent">
+						<div class="huaSong"  id="huayu">
+							<div v-for="item,index in huaYuList" :key="item.songName">
+								<div v-if="index>=min & index<max">
+									<div class="songName">{{item.songName}}</div>
+									<div class="showPlayButtom">
+										<span class="iconfont icon-sanjiaoxing1"></span>
+										<span class="iconfont icon-ziyuan71x"></span>
+									</div>
+									<div class="songTime">{{item.time}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="ouSong" id="oumei">
+							<div v-for="item,index in ouMeiList" :key="item.songName">
+								<div v-if="index>=min & index<max">
+									<div class="songName">{{item.songName}}</div>
+									<div class="showPlayButtom">
+										<span class="iconfont icon-sanjiaoxing1"></span>
+										<span class="iconfont icon-ziyuan71x"></span>
+									</div>
+									<div class="songTime">{{item.time}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="hanSong" id="hanyu">
+							<div v-for="item,index in hanYuList" :key="item.songName">
+								<div v-if="index>=min & index<max">
+									<div class="songName">{{item.songName}}</div>
+									<div class="showPlayButtom">
+										<span class="iconfont icon-sanjiaoxing1"></span>
+										<span class="iconfont icon-ziyuan71x"></span>
+									</div>
+									<div class="songTime">{{item.time}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="riSong" id="riyu">
+							<div v-for="item,index in riYuList" :key="item.songName">
+								<div v-if="index>=min & index<max">
+									<div class="songName">{{item.songName}}</div>
+									<div class="showPlayButtom">
+										<span class="iconfont icon-sanjiaoxing1"></span>
+										<span class="iconfont icon-ziyuan71x"></span>
+									</div>
+									<div class="songTime">{{item.time}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="xingePages">
+							<span v-on:click="beforXinContent">&lt;</span>{{current}}/{{pageTotal}}<span v-on:click="afterXinContent">&gt;</span>
+						</div>
+					</div>
+					
+				</div>
+				<!-- 推荐MV -->
+				<div class="tuojianMv">
+					<div class="mingchen">
+						<h3>推荐</h3>
+						MV
+						<a href="#" class="mingMore">更多</a>
+					</div>
+					<div class="mvFirst">
+						<div class="showPlayButtom1">
+							<div class="buttom1">
+								<p>张杰-跃进人海拥抱你（《温暖的抱抱》电影温暖主题曲）</p>
+								<span>张杰</span>
+							</div>
+							<div class="mvFirst_hover" >
+								<span class="iconfont icon-music-play"></span>
+							</div>	
+						</div>
+						<div>
+							<div>
+								<div class="mvFirst_hover">
+									<span class="iconfont icon-music-play mvFirst_hover1"></span>
+								</div>	
+							</div>
+							<p>张靓颖、摩登兄弟刘宇宁-无华（《有翡》电视剧片尾主题曲）</p>
+							<span>张靓颖、摩登兄弟刘宇宁</span>
+							
+						</div>
+						
+						<div>
+							<div>
+								<div class="mvFirst_hover">
+									<span class="iconfont icon-music-play mvFirst_hover1"></span>
+								</div>	
+							</div>
+							<p>张杰、刘润潼-别把我丢了（《阳光劫匪》电影主题曲）</p>
+							<span>张杰、刘润潼</span>	
+						</div>
+					</div>
+					</div>
+			</div>
+			<!-- 歌单三 -->	
+			<div class="gedan3">
+				<!-- 热门电台 -->
+				<div class="diantai">
+						<div class="mingchen">
+							<h3>热门</h3>
+							电台
+							<a href="#" class="mingMore">更多</a>
+						</div>
+						<div class="dianContent">
+							<div>
+								<div>
+									<a href="#"><img src="image/4-1.jpg" ></a>
+									<span>KTV必点曲</span>
+									<div class="dianFirst_hover" >
+										<span class="iconfont icon-music-play"></span>
+									</div>
+								</div>
+								<div>
+									<a href="#"><img src="image/4-2.jpg" ></a>
+									<span>中文DJ</span>
+									<div class="dianFirst_hover" >
+										<span class="iconfont icon-music-play"></span>
+									</div>
+								</div>
+								<div>
+									<a href="#"><img src="image/4-3.jpg" ></a>
+									<span>酷狗热歌</span>
+									<div class="dianFirst_hover" >
+										<span class="iconfont icon-music-play"></span>
+									</div>
+								</div>
+								<div>
+									<a href="#"><img src="image/4-4.jpg" ></a>
+									<span>网络红歌</span>
+									<div class="dianFirst_hover" >
+										<span class="iconfont icon-music-play"></span>
+									</div>
+								</div>
+								<div>
+									<a href="#"><img src="image/4-5.jpg" ></a>
+									<span>经典</span>
+									<div class="dianFirst_hover" >
+										<span class="iconfont icon-music-play"></span>
+									</div>
+								</div>
+							</div>
+							<div>
+								<div>
+									<a href="#"><img src="image/4-6.jpg" ></a>
+									<span>老情歌</span>
+									<div class="dianFirst_hover" >
+										<span class="iconfont icon-music-play"></span>
+									</div>
+								</div>
+								<div>
+									<a href="#"><img src="image/4-7.jpg" ></a>
+									<span>新歌</span>
+									<div class="dianFirst_hover" >
+										<span class="iconfont icon-music-play"></span>
+									</div>
+								</div>
+								<div>
+									<a href="#"><img src="image/4-8.jpg" ></a>
+									<span>动漫</span>
+									<div class="dianFirst_hover" >
+										<span class="iconfont icon-music-play"></span>
+									</div>
+								</div>
+								<div>
+									<a href="#"><img src="image/4-9.jpg" ></a>
+									<span>轻音乐</span>
+									<div class="dianFirst_hover" >
+										<span class="iconfont icon-music-play"></span>
+									</div>
+								</div>
+								<div>
+									<a href="#"><img src="image/4-10.jpg" ></a>
+									<span>最爱成名曲</span>	
+									<div class="dianFirst_hover" >
+										<span class="iconfont icon-music-play"></span>
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+				<!-- 热门歌手 -->
+				<div class="tuojianMv">
+					<div class="mingchen">
+						<h3>热门</h3>
+						歌手
+						<div class="geshouInform" id="geshouInform">
+							<span id="geshouHuayu" v-on:mouseenter="geshouListKid(0)">华语</span>
+							<span id="geshouOumei" v-on:mouseenter="geshouListKid(1)">欧美</span>
+							<span id="geshouHanyu" v-on:mouseenter="geshouListKid(2)">日韩</span>
+							<span id="geshouMore" v-on:mouseenter="geshouListKid(3)">更多</span>
+							<!-- <a href="#" class="mingMore">更多</a> -->
+						</div>
+					</div>
+					<div class="geshouFirst">
+						<ul class="geshouList">
+							<li v-for="item,index in geshouLists" v-on:mouseenter="hover($event)" v-on:mouseleave="hoverHi($event)">
+									<img v-bind:src="item.imgUrl" alt="">
+									<span>{{item.singer}}</span>
+									<div class="geshou_hover">
+									</div>	
+							</li>
+						</ul> 
+						<div class="geshouDot" id='geshouDot'>
+							<a href="#" class="iconfont icon-point-copy-9-copy"
+							v-on:mouseenter="geshouList(0)">
+							</a>
+							<a href="#" class="iconfont icon-point-copy-9-copy"
+							v-on:mouseenter="geshouList(1)">
+							</a>
+							<a href="#" class="iconfont icon-point-copy-9-copy"
+							v-on:mouseenter="geshouList(2)">
+							</a>
+							
+						</div>
+						
+					</div>
+				</div>	
+			</div>
+			<!-- 友情链接 -->
+			<div class="youLink">
+				<div class="youqing">
+					<div class="mingchen">
+						<h3>友情</h3>
+						链接
+						<a href="#" class="mingMore">更多</a>
+					</div>
+				</div>
+				<div class="youqingContent">
+					<a :href="item.href" :title="item.title" v-for="item in youqingLinks">{{item.title}}</a>
+				</div>
+			</div>
+			<!-- 底部信息 -->
+			<!--
+			<div class="bottom">
+				<div class="bottomLink">
+					<div v-for="item in bottomLink"><a :href="item.href">{{item.title}}</a>|</div>
+					<div><a href="http://survey.kugou.com/default/index/i=40CD7B8437008E65E67D82D9044C15C99C2E699859F51338">用户体验提升计划</a></div>
+				</div>
+				<div class="bottomContent">
+					<p>我们致力于推动网络正版音乐发展，相关版权合作请联系copyrights@kugou.com</p>
+					<p>信息网络传播视听节目许可证 1910564 增值电信业务经营许可证粤B2-20060339 &nbsp; &nbsp;  
+						<a href="">粤ICP备09017694号</a>    
+					</p>
+					<p>广播电视节目制作经营许可证（粤）字第01270号    营业性演出许可证穗天演440106026&nbsp; &nbsp;
+					   <a href="">营业执照</a>
+					</p>
+					<p>穗公网监备案证第44010650010167    互联网药品信息服务资格证编号（粤）-非经营性-2012-0018&nbsp; &nbsp;
+					<a href="">粤公网安备 44010602000141号</a></p>
+					<p>
+						互联网不良信息举报中心：www.12377.cn  &nbsp; &nbsp;  
+						酷狗不良信息举报邮箱：jubao_music@kugou.net &nbsp; &nbsp;
+						客服邮箱：kefu@kugou.net
+					</p>
+					<p>Copyright  ©  2004-2020 KuGou-Inc.All Rights Reserved
+                    </p>
+				</div>
+			</div>
+			-->
+		</div>
+		<script src="./js/kugou.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+		</script>
+	</body>
+</html>
